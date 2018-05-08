@@ -279,7 +279,7 @@ public class RobotControllerDataInterface : HardwareInterfaceBase
         SetCompass(BaseFunction.g_modifiedAngle[0]);
         SetTemperature(0);
 
-        SetAccelerate(UnityEngine.Random.insideUnitSphere * 50);
+       // SetAccelerate(UnityEngine.Random.insideUnitSphere * 50);
 
         SetElectricCurrent(BaseFunction.g_current[0]);
 
@@ -289,9 +289,9 @@ public class RobotControllerDataInterface : HardwareInterfaceBase
         SetMotorSpeed(BaseFunction.g_rpm[3], 3);
         SetMotorSpeed(BaseFunction.g_rpm[4], 4);
 
-        SetSpeed(UnityEngine.Random.Range(0, 200));
+        //SetSpeed(UnityEngine.Random.Range(0, 200));
 
-        SetAttitude(UnityEngine.Random.insideUnitSphere * 360);
+        //SetAttitude(UnityEngine.Random.insideUnitSphere * 360);
         SetDeep(BaseFunction.g_depth);
 
         SetPressure(BaseFunction.g_pressure);

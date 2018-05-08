@@ -24,6 +24,8 @@ public class SerialPortOperation : MonoBehaviour
     public OPS curStatus = OPS.IDLE;
     int curRPM = 0;
 
+    Coroutine _UpdateCoroutine;
+
     public void goUp(SerialPortController sp, Master ms, int rpm) // go up only set middle rpm
     {
         int[] rpmToSet = new int[Config.max_num_of_thrusters];
@@ -411,19 +413,27 @@ public class SerialPortOperation : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(UpdateData());
+        _UpdateCoroutine = StartCoroutine(UpdateData());
+    }
+    private void OnDestroy()
+    {
+        StopCoroutine(_UpdateCoroutine);
     }
     IEnumerator UpdateData()
     {
-        OngetAllCurrent(SerialPortController.mInstance, SerialPortController.mInstance.ms);
-        OngetAllRPM(SerialPortController.mInstance, SerialPortController.mInstance.ms);
-        OngetBatteryVolts(SerialPortController.mInstance, SerialPortController.mInstance.ms);
-        OngetDevNumAndAddr(SerialPortController.mInstance, SerialPortController.mInstance.ms);
-        OngetHygro1(SerialPortController.mInstance, SerialPortController.mInstance.ms);
-        OngetHygro2(SerialPortController.mInstance, SerialPortController.mInstance.ms);
-        OngetPressure(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+        while(true)
+        {
+            OngetAllCurrent(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+            OngetAllRPM(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+            OngetBatteryVolts(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+            OngetDevNumAndAddr(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+            OngetHygro1(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+            OngetHygro2(SerialPortController.mInstance, SerialPortController.mInstance.ms);
+            OngetPressure(SerialPortController.mInstance, SerialPortController.mInstance.ms);
 
-        yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f);
+
+        }
     }
     
 
