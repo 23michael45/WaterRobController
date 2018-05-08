@@ -31,6 +31,7 @@ public class SerialPortController : MonoBehaviour {
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         mInstance = this;
     }
 
