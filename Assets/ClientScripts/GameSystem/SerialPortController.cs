@@ -45,6 +45,8 @@ public class SerialPortController : MonoBehaviour {
         _SerialPort = new SerialPort(ComName, PortRate);  //这里的"COM4"是我的设备，可以在设备管理器查看。
                                             //9600是默认的波特率，需要和Arduino对应，其它的构造参数可以不用配置。
         _SerialPort.ReadTimeout = 500;
+        _SerialPort.Parity = Parity.Even;
+        _SerialPort.StopBits = StopBits.One;
         _SerialPort.Open();
         StartThread();
 	}
@@ -97,7 +99,7 @@ public class SerialPortController : MonoBehaviour {
                     PortBuffer.Enqueue((byte)charRec);
 
                     mutex.ReleaseMutex();
-                    
+
                 }
                 catch
                 {
@@ -110,7 +112,6 @@ public class SerialPortController : MonoBehaviour {
             }
         }
     }
-
     public void sendDownstreamPacket(DataPacket p)
     {
         int size = p.dataLen + 7;
