@@ -93,11 +93,11 @@ public class SerialPortController : MonoBehaviour {
                     int charRec = _SerialPort.ReadByte();            //SerialPort读取数据有多种方法，我这里根据需要使用了ReadLine()
 
                     mutex.WaitOne();
+
                     PortBuffer.Enqueue((byte)charRec);
 
                     mutex.ReleaseMutex();
-
-                    Debug.Log("Receive From Serial: " + charRec.ToString("X"));
+                    
                 }
                 catch
                 {
